@@ -5,13 +5,13 @@
 	Website: http://www.easydarwin.org
 */
 /* 
- * File:   g7712aac.cpp
+ * File:   EasyAACEncoder.cpp
  * Author: Wellsen
  * 
  * Created on 2015年4月11日, 上午11:44
  */
 
-#include "g7712aac.h"
+#include "EasyAACEncoder.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>

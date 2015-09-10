@@ -5,14 +5,14 @@
 	Website: http://www.easydarwin.org
 */
 /* 
- * File:   g7712aac.h
+ * File:   EasyAACEncoder.h
  * Author: Wellsen
  *
  * Created on 2015年4月11日, 上午11:44
  */
 
-#ifndef G7712AAC_H
-#define	G7712AAC_H
+#ifndef EasyAACEncoder_H
+#define	EasyAACEncoder_H
 extern "C" {
 #include <faac.h>
 }
@@ -67,5 +67,5 @@ private:
     faacEncConfigurationPtr pConfiguration;
 };
 
-#endif	/* G7712AAC_H */
+#endif	/* EasyAACEncoder_H */
 

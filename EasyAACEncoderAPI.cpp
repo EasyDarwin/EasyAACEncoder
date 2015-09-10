@@ -5,14 +5,14 @@
 	Website: http://www.easydarwin.org
 */
 /* 
- * File:   libg7112aac.cpp
+ * File:   libEasyAACEncoder.cpp
  * Author: Wellsen
  * 
  * Created on 2015年4月11日, 上午10:57
  */
 
-#include "libg7112aac.h"
-#include "g7712aac.h"
+#include "EasyAACEncoderAPI.h"
+#include "EasyAACEncoder.h"
 
 EASY_AAC_ENC_HANDLE libg7112aac_open()
 {

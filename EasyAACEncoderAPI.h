@@ -4,15 +4,8 @@
 	WEChat: EasyDarwin
 	Website: http://www.easydarwin.org
 */
-/* 
- * File:   libg7112aac.h
- * Author: Wellsen
- *
- * Created on 2015年4月11日, 上午10:57
- */
-
-#ifndef LIB_G7112AAC_H
-#define	LIB_G7112AAC_H
+#ifndef EasyAACEncoder_API_H
+#define	EasyAACEncoder_API_H
 
 typedef void* EASY_AAC_ENC_HANDLE;
 
@@ -22,5 +15,5 @@ int libg7112aac_encode(EASY_AAC_ENC_HANDLE handle, unsigned char* inbuf, unsigne
 
 void libg7112aac_close(EASY_AAC_ENC_HANDLE handle);
 
-#endif	/* LIB_G7112AAC_H */
+#endif	/* EasyAACEncoder_API_H */
 

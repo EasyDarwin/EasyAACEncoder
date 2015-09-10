@@ -14,6 +14,7 @@
     <ProjectGuid>{9D70B453-456D-47B7-8692-82D8BB6FBDF6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>libg7112aac</RootNamespace>
+    <ProjectName>libEasyAACEncoder</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -77,8 +78,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EasyAACEncoder.cpp" />
+    <ClCompile Include="EasyAACEncoderAPI.cpp" />
     <ClCompile Include="EasyDSSBuffers.cpp" />
-    <ClCompile Include="g7712aac.cpp" />
     <ClCompile Include="libfaac\aacquant.c" />
     <ClCompile Include="libfaac\backpred.c" />
     <ClCompile Include="libfaac\bitstream.c" />
@@ -94,11 +96,11 @@
     <ClCompile Include="libfaac\psychkni.c" />
     <ClCompile Include="libfaac\tns.c" />
     <ClCompile Include="libfaac\util.c" />
-    <ClCompile Include="libg7112aac.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EasyAACEncoder.h" />
+    <ClInclude Include="EasyAACEncoderAPI.h" />
     <ClInclude Include="EasyDSSBuffers.h" />
-    <ClInclude Include="g7712aac.h" />
     <ClInclude Include="libfaac\aacquant.h" />
     <ClInclude Include="libfaac\backpred.h" />
     <ClInclude Include="libfaac\bitstream.h" />
@@ -118,7 +120,6 @@
     <ClInclude Include="libfaac\tns.h" />
     <ClInclude Include="libfaac\util.h" />
     <ClInclude Include="libfaac\version.h" />
-    <ClInclude Include="libg7112aac.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
