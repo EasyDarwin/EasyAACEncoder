@@ -14,14 +14,14 @@
 #include "EasyAACEncoderAPI.h"
 #include "EasyAACEncoder.h"
 
-EASY_AAC_ENC_HANDLE libg7112aac_open()
+EasyAACEncoder_Handle Easy_AACEncoder_Create()
 {
     g7712aac *encoder = new g7712aac();
     encoder->init();
     return encoder;
 }
 
-int libg7112aac_encode(EASY_AAC_ENC_HANDLE handle, unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen)
+int Easy_AACEncoder_Encode(EasyAACEncoder_Handle handle, unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen)
 {
     if(handle == NULL)
     {
@@ -30,7 +30,7 @@ int libg7112aac_encode(EASY_AAC_ENC_HANDLE handle, unsigned char* inbuf, unsigne
     return ((g7712aac*)handle)->aac_encode(inbuf, inlen, outbuf, outlen);
 }
 
-void libg7112aac_close(EASY_AAC_ENC_HANDLE handle)
+void Easy_AACEncoder_Release(EasyAACEncoder_Handle handle)
 {
     if(handle != NULL)
     {

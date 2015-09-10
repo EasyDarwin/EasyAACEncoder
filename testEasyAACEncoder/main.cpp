@@ -26,7 +26,7 @@ using namespace std;
  */
 int main(int argc, char** argv)
 {
-    EASY_AAC_ENC_HANDLE handle = libg7112aac_open();
+    EasyAACEncoder_Handle handle = Easy_AACEncoder_Create();
     
     FILE* fpIn = fopen(TEST_G711A_FILE, "rb");
     if(NULL == fpIn)
@@ -49,13 +49,13 @@ int main(int argc, char** argv)
     
     while((gBytesRead = fread(pbG711ABuffer, 1, 500, fpIn)) >0)
     {    
-        if(libg7112aac_encode(handle, pbG711ABuffer, gBytesRead, pbAACBuffer, &out_len) > 0)
+        if(Easy_AACEncoder_Encode(handle, pbG711ABuffer, gBytesRead, pbAACBuffer, &out_len) > 0)
         {
             fwrite(pbAACBuffer, 1, out_len, fpOut);
         }
     }
         
-    libg7112aac_close(handle);
+    Easy_AACEncoder_Release(handle);
     
     free(pbG711ABuffer);
     free(pbAACBuffer);
