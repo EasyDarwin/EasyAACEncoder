@@ -41,4 +41,3 @@ extern "C"
 #endif
 
 #endif	/* EasyAACEncoder_API_H */
-

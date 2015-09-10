@@ -34,6 +34,5 @@ _ReSharper*/
 [Pp]rivate*/
 ipch/
 *.opensdf
-*.m3u8
-*.ts
 *.suo
+*.aac
