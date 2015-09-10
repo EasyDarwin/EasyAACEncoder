@@ -17,16 +17,23 @@
 
 #define EasyAACEncoder_Handle void*
 
+/* 音频编码 */
+#define EASY_SDK_AUDIO_CODEC_AAC	0x01000011		/* AAC */
+#define EASY_SDK_AUDIO_CODEC_G711A	0x01000012		/* G711 alaw*/
+#define EASY_SDK_AUDIO_CODEC_G711U	0x01000014		/* G711 ulaw*/
+#define EASY_SDK_AUDIO_CODEC_G726	0x01000018		/* G726 */
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-	/* 创建HLSSession  返回为句柄值 */
-	Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Create(unsigned long sampleRate, unsigned int numChannels);
+	/* 创建AAC Encoder 返回为句柄值 */
+	Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init(unsigned int u32AudioCodec, unsigned int u32AudioSamplerate, unsigned int u32AudioChannel);
 
-
+	/* 输入编码数据，返回编码后数据 */
 	Easy_API int Easy_APICALL Easy_AACEncoder_Encode(EasyAACEncoder_Handle handle, unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen);
 
+	/* 释放AAC Encoder */
 	Easy_API void Easy_APICALL Easy_AACEncoder_Release(EasyAACEncoder_Handle handle);
 
 #ifdef __cplusplus

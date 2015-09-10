@@ -36,8 +36,4 @@ ipch/
 *.opensdf
 *.m3u8
 *.ts
-/EasyHLS_RTSP/build/
-/EasyHLS_RTSP/dist/
-/EasyHLS_SDK/build/
-/EasyHLS_SDK/dist/
-EasyAACEncoder.suo
+*.suo

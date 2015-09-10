@@ -26,7 +26,7 @@ using namespace std;
  */
 int main(int argc, char** argv)
 {
-    EasyAACEncoder_Handle handle = Easy_AACEncoder_Create();
+    EasyAACEncoder_Handle handle = Easy_AACEncoder_Init(0, 0, 0);
     
     FILE* fpIn = fopen(TEST_G711A_FILE, "rb");
     if(NULL == fpIn)
