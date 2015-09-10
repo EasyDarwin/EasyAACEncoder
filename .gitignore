@@ -1,28 +1,42 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
+
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
 *.exe
-*.out
-*.app
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+[Dd]ebug*/
+*.lib
+*.sbr
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+*.sdf
+*.sdp
+*.o
+*.exp
+[Ll]ogs*/
+[Pp]rivate*/
+ipch/
+*.opensdf
+*.m3u8
+*.ts
+/EasyHLS_RTSP/build/
+/EasyHLS_RTSP/dist/
+/EasyHLS_SDK/build/
+/EasyHLS_SDK/dist/

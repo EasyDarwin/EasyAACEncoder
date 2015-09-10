@@ -14,7 +14,7 @@
     <ProjectGuid>{812DF705-FDD7-4963-BAEB-ED531CAD3260}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>testg7112aac</RootNamespace>
-    <ProjectName>TestEasyPCM2AAC</ProjectName>
+    <ProjectName>testEasyAACEncoder</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -78,7 +78,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libg7112aac.vcxproj">
+    <ProjectReference Include="..\libEasyAACEncoder.vcxproj">
       <Project>{9d70b453-456d-47b7-8692-82d8bb6fbdf6}</Project>
     </ProjectReference>
   </ItemGroup>

@@ -12,7 +12,7 @@
  */
 
 #include <iostream>
-#include "../libg7112aac.h"
+#include "../EasyAACEncoderAPI.h"
 #include <stdio.h>
 #include <stdlib.h>
 
