@@ -14,7 +14,7 @@
 #include "EasyAACEncoderAPI.h"
 #include "EasyAACEncoder.h"
 
-Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init()
+Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init(unsigned int u32AudioCodec, unsigned int u32AudioSamplerate, unsigned int u32AudioChannel)
 {
     g7712aac *encoder = new g7712aac();
     encoder->init();

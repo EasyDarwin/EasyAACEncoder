@@ -21,9 +21,6 @@ using namespace std;
 #define TEST_G711A_FILE       "src.g711a"
 #define TEST_AAC_FILE         "dest.aac"
 
-/*
- * 
- */
 int main(int argc, char** argv)
 {
     EasyAACEncoder_Handle handle = Easy_AACEncoder_Init(0, 0, 0);
