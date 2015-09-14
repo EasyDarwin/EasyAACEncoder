@@ -17,7 +17,12 @@
 Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init(unsigned int u32AudioCodec, unsigned int u32AudioSamplerate, unsigned int u32AudioChannel)
 {
     g7712aac *encoder = new g7712aac();
-    encoder->init();
+    //encoder->init();
+
+	InAudioInfo info(u32AudioCodec , u32AudioSamplerate , u32AudioChannel );
+	encoder->init(info);
+
+
     return encoder;
 }
 

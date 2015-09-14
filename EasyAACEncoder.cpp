@@ -17,6 +17,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "g711.h"
+
+#include "EasyAACEncoderAPI.h"
+
 #define AAC_DEBUG 0
 
 static const int16_t alawtos16[256] ={
@@ -351,6 +355,37 @@ void audio_buffer::update_data_len(int len)
     len_ += len;
 }
 
+//------------------------------------------------------------------------------------------------------------------------
+InAudioInfo::InAudioInfo(unsigned int u32AudioCodec/*=EASY_SDK_AUDIO_CODEC_G711A*/, unsigned int u32AudioSamplerate/*=8000*/, unsigned int u32AudioChannel/*=1*/):
+m_u32AudioCodec(u32AudioCodec),m_u32AudioChannel(u32AudioChannel),m_u32AudioSamplerate(u32AudioSamplerate)
+{
+	if (0 == u32AudioCodec)
+	{
+		m_u32AudioCodec = EASY_SDK_AUDIO_CODEC_G711A;
+	}
+	if (0 == u32AudioChannel)
+	{
+		m_u32AudioChannel = 1;
+	}
+	if (0 == u32AudioSamplerate)
+	{
+		m_u32AudioSamplerate = 8000;
+	}
+}
+//------------------------------------------------------------------------------------------------------------------------
+
+#define USE_SHOUT_G711PACK 0
+#if USE_SHOUT_G711PACK
+#define G711_ONE_LEN 160
+#define G711_ONE_OFFSET 0
+
+#else
+#define G711_ONE_LEN 164
+#define G711_ONE_OFFSET 4
+#endif
+
+const INT CON_PCM_SIZE = 320;
+
 g7712aac::g7712aac()
 {
     pbPCMBuffer = NULL;
@@ -384,7 +419,7 @@ int g7712aac::init()
     nCount = 0;
     nStatus = 0;
     nPCMRead = 0;
-    PCMSize = 320;
+    PCMSize = /*320*/CON_PCM_SIZE;
     nPCMBufferSize = 0;
 
     unsigned int objectType = LOW;
@@ -393,9 +428,11 @@ int g7712aac::init()
 
     //TODO: config this
     unsigned int nChannels = 1;
+	nChannels = GetAudioChannel();
     nPCMBitSize = 16;
     nInputSamples = 0;
     unsigned long nSampleRate = 8000;
+	nSampleRate = GetAudioSamplerate();
     nMaxOutputBytes = 0;
 
     /*open FAAC engine*/
@@ -413,8 +450,8 @@ int g7712aac::init()
     pbAACBuffer = (unsigned char*) malloc(nMaxOutputBytes * sizeof (unsigned char));
     memset(pbAACBuffer, 0, nMaxOutputBytes);
 
-    pbG711ABuffer = (unsigned char *) malloc(164 * sizeof (unsigned char));
-    memset(pbG711ABuffer, 0, 164);
+    pbG711ABuffer = (unsigned char *) malloc(/*164*/G711_ONE_LEN * sizeof (unsigned char));
+    memset(pbG711ABuffer, 0, /*164*/G711_ONE_LEN);
 
     audio_buffer_ = new audio_buffer();
 
@@ -436,72 +473,159 @@ int g7712aac::init()
 
     // bStart = true;
     //thread.reset(new boost::thread(boost::bind(encode_routine, this)));
-}
 
+	return 0;
+}
+int g7712aac::init(InAudioInfo info)
+{
+	m_inAudioInfo = info;
+
+	return init();
+}
 int g7712aac::aac_encode(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen)
 {
-    audio_buffer_->write_data(inbuf, inlen);
-    int buffer_len = 0;
-    *outlen = 0;
-    while ((buffer_len = audio_buffer_->get_data(pbG711ABuffer, 164)) > 0)
-    {
-        if (buffer_len <= 0)
-        {
-            if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM  no G711 data !\n", __FUNCTION__, __LINE__);
-            //Sleep(100);
-            return -1;
-        }
-
-        nStatus = 0;        
-        memset(pbPCMTmpBuffer, 0, PCMSize);
-        if ((nPCMRead = g711a_decode(pbPCMTmpBuffer, &PCMSize, pbG711ABuffer+4, buffer_len-4)) < 0) // TODO: skip 4 byte?
-        {
-            if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM  failed buffer_len = %d !\n", __FUNCTION__, __LINE__, buffer_len);            
-            return -1;
-        }
-        //if(AAC_DEBUG) printf("nPCMRead = %d, PCMSize = %d\n", nPCMRead, PCMSize);
-
-        if ((nPCMBufferSize - nCount) < nPCMRead)
-        {
-            //if(AAC_DEBUG) printf("nPCMBufferSize = %d, nCount = %d, nPCMRead = %d\n", nPCMBufferSize, nCount, nPCMRead);
-            nStatus = 1;
-            memset(pbAACBuffer, 0, nMaxOutputBytes);
-            memcpy(pbPCMBuffer + nCount, pbPCMTmpBuffer, (nPCMBufferSize - nCount));
-            nInputSamples = (nPCMBufferSize / (nPCMBitSize / 8));
-            if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode....\n",  __FUNCTION__, __LINE__);
-            nRet = faacEncEncode(hEncoder, (int*) pbPCMBuffer, nInputSamples, pbAACBuffer, nMaxOutputBytes);
-            if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode\n",  __FUNCTION__, __LINE__);
-            memcpy(outbuf + *outlen, pbAACBuffer, nRet);
-            *outlen += nRet;
-
-            nTmp = nPCMRead - (nPCMBufferSize - nCount);
-            memset(pbPCMBuffer, 0, nPCMBufferSize);
-            memcpy(pbPCMBuffer, pbPCMTmpBuffer + (nPCMBufferSize - nCount), nTmp);
-            if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM (nPCMBufferSize - nCount) < nPCMRead\n",  __FUNCTION__, __LINE__);
-            nCount = 0;
-            nCount += nTmp;
-        }
-
-        if (nStatus == 0)
-        {
-            if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM nStatus = 0...\n",  __FUNCTION__, __LINE__);
-            memcpy(pbPCMBuffer + nCount, pbPCMTmpBuffer, nPCMRead);
-            if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM nStatus = 0\n",  __FUNCTION__, __LINE__);
-            nCount += nPCMRead;
-        }
-        
-        if (nPCMRead < 320)
-        {
-            if(AAC_DEBUG) printf("nPCMRead = %d\n", nPCMRead);
-            nInputSamples = (nCount / (nPCMBitSize / 8));
-            if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode....\n",  __FUNCTION__, __LINE__);
-            nRet = faacEncEncode(hEncoder, (int*) pbPCMBuffer, nInputSamples, pbAACBuffer, nMaxOutputBytes);
-            if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode\n",  __FUNCTION__, __LINE__);
-            memcpy(outbuf + *outlen, pbAACBuffer, nRet);
-            *outlen += nRet;
-            if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM nPCMRead < 320\n",  __FUNCTION__, __LINE__);
-        }
-    }
-    return *outlen;
+	int encodeLen = 0;
+	if ( EASY_SDK_AUDIO_CODEC_G711A == m_inAudioInfo.CodecType())
+	{
+		encodeLen = aac_encode_g711(inbuf , inlen , outbuf , outlen , TP_ALAW);
+	}else if ( EASY_SDK_AUDIO_CODEC_G711U == m_inAudioInfo.CodecType() )
+	{
+		encodeLen = aac_encode_g711(inbuf , inlen , outbuf , outlen , TP_ULAW);
+	}else
+	{
+		encodeLen = aac_encode_base(inbuf , inlen , outbuf , outlen);
+	}
+	return encodeLen;
 }
+int g7712aac::aac_encode_base(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen)
+{
+	audio_buffer_->write_data(inbuf, inlen);
+	int buffer_len = 0;
+	*outlen = 0;
+	while ((buffer_len = audio_buffer_->get_data(pbG711ABuffer, /*164*/G711_ONE_LEN)) > 0)
+	{
+		if (buffer_len <= 0)
+		{
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM  no G711 data !\n", __FUNCTION__, __LINE__);
+			//Sleep(100);
+			return -1;
+		}
 
+		nStatus = 0;        
+		memset(pbPCMTmpBuffer, 0, PCMSize);
+		if ((nPCMRead = g711a_decode(pbPCMTmpBuffer, &PCMSize, pbG711ABuffer+/*4*/G711_ONE_OFFSET, buffer_len-/*4*/G711_ONE_OFFSET)) < 0) // TODO: skip 4 byte?
+		{
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM  failed buffer_len = %d !\n", __FUNCTION__, __LINE__, buffer_len);            
+			return -1;
+		}
+		//if(AAC_DEBUG) printf("nPCMRead = %d, PCMSize = %d\n", nPCMRead, PCMSize);
+
+		if ((nPCMBufferSize - nCount) < nPCMRead)
+		{
+			//if(AAC_DEBUG) printf("nPCMBufferSize = %d, nCount = %d, nPCMRead = %d\n", nPCMBufferSize, nCount, nPCMRead);
+			nStatus = 1;
+			memset(pbAACBuffer, 0, nMaxOutputBytes);
+			memcpy(pbPCMBuffer + nCount, pbPCMTmpBuffer, (nPCMBufferSize - nCount));
+			nInputSamples = (nPCMBufferSize / (nPCMBitSize / 8));
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode....\n",  __FUNCTION__, __LINE__);
+			nRet = faacEncEncode(hEncoder, (int*) pbPCMBuffer, nInputSamples, pbAACBuffer, nMaxOutputBytes);
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode\n",  __FUNCTION__, __LINE__);
+			memcpy(outbuf + *outlen, pbAACBuffer, nRet);
+			*outlen += nRet;
+
+			nTmp = nPCMRead - (nPCMBufferSize - nCount);
+			memset(pbPCMBuffer, 0, nPCMBufferSize);
+			memcpy(pbPCMBuffer, pbPCMTmpBuffer + (nPCMBufferSize - nCount), nTmp);
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM (nPCMBufferSize - nCount) < nPCMRead\n",  __FUNCTION__, __LINE__);
+			nCount = 0;
+			nCount += nTmp;
+		}
+
+		if (nStatus == 0)
+		{
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM nStatus = 0...\n",  __FUNCTION__, __LINE__);
+			memcpy(pbPCMBuffer + nCount, pbPCMTmpBuffer, nPCMRead);
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM nStatus = 0\n",  __FUNCTION__, __LINE__);
+			nCount += nPCMRead;
+		}
+
+		if (nPCMRead < /*320*/CON_PCM_SIZE)
+		{
+			if(AAC_DEBUG) printf("nPCMRead = %d\n", nPCMRead);
+			nInputSamples = (nCount / (nPCMBitSize / 8));
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode....\n",  __FUNCTION__, __LINE__);
+			nRet = faacEncEncode(hEncoder, (int*) pbPCMBuffer, nInputSamples, pbAACBuffer, nMaxOutputBytes);
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode\n",  __FUNCTION__, __LINE__);
+			memcpy(outbuf + *outlen, pbAACBuffer, nRet);
+			*outlen += nRet;
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM nPCMRead < 320\n",  __FUNCTION__, __LINE__);
+		}
+	}
+	return *outlen;
+}
+int g7712aac::aac_encode_g711(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen , int type)
+{
+	audio_buffer_->write_data(inbuf, inlen);
+	int buffer_len = 0;
+	*outlen = 0;
+	while ((buffer_len = audio_buffer_->get_data(pbG711ABuffer, /*164*/G711_ONE_LEN)) > 0)
+	{
+		if (buffer_len <= 0)
+		{
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM  no G711 data !\n", __FUNCTION__, __LINE__);
+			//Sleep(100);
+			return -1;
+		}
+
+		nStatus = 0;        
+		memset(pbPCMTmpBuffer, 0, PCMSize);
+		if ((nPCMRead = g711_decode(pbPCMTmpBuffer, &PCMSize, pbG711ABuffer+/*4*/G711_ONE_OFFSET, buffer_len-/*4*/G711_ONE_OFFSET , type)) < 0) // TODO: skip 4 byte?
+		{
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM  failed buffer_len = %d !\n", __FUNCTION__, __LINE__, buffer_len);            
+			return -1;
+		}
+		//if(AAC_DEBUG) printf("nPCMRead = %d, PCMSize = %d\n", nPCMRead, PCMSize);
+
+		if ((nPCMBufferSize - nCount) < nPCMRead)
+		{
+			//if(AAC_DEBUG) printf("nPCMBufferSize = %d, nCount = %d, nPCMRead = %d\n", nPCMBufferSize, nCount, nPCMRead);
+			nStatus = 1;
+			memset(pbAACBuffer, 0, nMaxOutputBytes);
+			memcpy(pbPCMBuffer + nCount, pbPCMTmpBuffer, (nPCMBufferSize - nCount));
+			nInputSamples = (nPCMBufferSize / (nPCMBitSize / 8));
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode....\n",  __FUNCTION__, __LINE__);
+			nRet = faacEncEncode(hEncoder, (int*) pbPCMBuffer, nInputSamples, pbAACBuffer, nMaxOutputBytes);
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode\n",  __FUNCTION__, __LINE__);
+			memcpy(outbuf + *outlen, pbAACBuffer, nRet);
+			*outlen += nRet;
+
+			nTmp = nPCMRead - (nPCMBufferSize - nCount);
+			memset(pbPCMBuffer, 0, nPCMBufferSize);
+			memcpy(pbPCMBuffer, pbPCMTmpBuffer + (nPCMBufferSize - nCount), nTmp);
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM (nPCMBufferSize - nCount) < nPCMRead\n",  __FUNCTION__, __LINE__);
+			nCount = 0;
+			nCount += nTmp;
+		}
+
+		if (nStatus == 0)
+		{
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM nStatus = 0...\n",  __FUNCTION__, __LINE__);
+			memcpy(pbPCMBuffer + nCount, pbPCMTmpBuffer, nPCMRead);
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM nStatus = 0\n",  __FUNCTION__, __LINE__);
+			nCount += nPCMRead;
+		}
+
+		if (nPCMRead < /*320*/CON_PCM_SIZE)
+		{
+			if(AAC_DEBUG) printf("nPCMRead = %d\n", nPCMRead);
+			nInputSamples = (nCount / (nPCMBitSize / 8));
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode....\n",  __FUNCTION__, __LINE__);
+			nRet = faacEncEncode(hEncoder, (int*) pbPCMBuffer, nInputSamples, pbAACBuffer, nMaxOutputBytes);
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM faacEncEncode\n",  __FUNCTION__, __LINE__);
+			memcpy(outbuf + *outlen, pbAACBuffer, nRet);
+			*outlen += nRet;
+			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM nPCMRead < 320\n",  __FUNCTION__, __LINE__);
+		}
+	}
+	return *outlen;
+}

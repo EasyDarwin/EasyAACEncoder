@@ -18,12 +18,15 @@
 
 using namespace std;
 
-#define TEST_G711A_FILE       "src.g711a"
+#define TEST_G711A_FILE       "src.g711a"  //私有
+//#define TEST_G711A_FILE       "g711.g711a"  //标准
+
 #define TEST_AAC_FILE         "dest.aac"
 
 int main(int argc, char** argv)
 {
-    EasyAACEncoder_Handle handle = Easy_AACEncoder_Init(0, 0, 0);
+    EasyAACEncoder_Handle handle = Easy_AACEncoder_Init( 0 , 0, 0);
+    //EasyAACEncoder_Handle handle = Easy_AACEncoder_Init( EASY_SDK_AUDIO_CODEC_AAC , 0, 0);
     
     FILE* fpIn = fopen(TEST_G711A_FILE, "rb");
     if(NULL == fpIn)

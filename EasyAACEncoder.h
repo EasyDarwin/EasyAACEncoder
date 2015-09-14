@@ -17,6 +17,7 @@ extern "C" {
 #include <faac.h>
 }
 #include "EasyDSSBuffers.h"
+#include "EasyAACEncoderAPI.h"
 
 class audio_buffer
 {
@@ -37,6 +38,31 @@ private:
     int len_;
 };
 
+
+class InAudioInfo
+{
+public:
+	InAudioInfo(unsigned int u32AudioCodec=EASY_SDK_AUDIO_CODEC_G711A, unsigned int u32AudioSamplerate=8000, unsigned int u32AudioChannel=1);
+	~InAudioInfo(){;}
+
+	unsigned int CodecType()
+	{
+		return m_u32AudioCodec;
+	}
+	unsigned int Samplerate()
+	{
+		return m_u32AudioSamplerate;
+	}
+	unsigned int Channel()
+	{
+		return m_u32AudioChannel;
+	}
+private:
+	unsigned int m_u32AudioCodec;
+	unsigned int m_u32AudioSamplerate;
+	unsigned int m_u32AudioChannel;
+};
+
 class g7712aac
 {
 public:
@@ -44,8 +70,13 @@ public:
     virtual ~g7712aac();
     
     int init();
+	int init(InAudioInfo info);
     
     int aac_encode(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen);
+
+private:
+	int aac_encode_base(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen);
+	int aac_encode_g711(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen , int type);
     
 private:        
     int nRet;
@@ -65,6 +96,17 @@ private:
     unsigned char *pbPCMTmpBuffer; 
     faacEncHandle hEncoder;
     faacEncConfigurationPtr pConfiguration;
+
+	//------
+	InAudioInfo m_inAudioInfo;
+	unsigned int GetAudioChannel()
+	{
+		return m_inAudioInfo.Channel();
+	}
+	unsigned int GetAudioSamplerate()
+	{
+		return m_inAudioInfo.Samplerate();
+	}
 };
 
 #endif	/* EasyAACEncoder_H */

@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
@@ -91,6 +91,7 @@
     <ClCompile Include="EasyAACEncoder.cpp" />
     <ClCompile Include="EasyAACEncoderAPI.cpp" />
     <ClCompile Include="EasyDSSBuffers.cpp" />
+    <ClCompile Include="g711.cpp" />
     <ClCompile Include="libfaac\aacquant.c" />
     <ClCompile Include="libfaac\backpred.c" />
     <ClCompile Include="libfaac\bitstream.c" />
@@ -111,6 +112,7 @@
     <ClInclude Include="EasyAACEncoder.h" />
     <ClInclude Include="EasyAACEncoderAPI.h" />
     <ClInclude Include="EasyDSSBuffers.h" />
+    <ClInclude Include="g711.h" />
     <ClInclude Include="libfaac\aacquant.h" />
     <ClInclude Include="libfaac\backpred.h" />
     <ClInclude Include="libfaac\bitstream.h" />
