@@ -88,10 +88,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="audio_buffer.cpp" />
     <ClCompile Include="EasyAACEncoder.cpp" />
     <ClCompile Include="EasyAACEncoderAPI.cpp" />
     <ClCompile Include="EasyDSSBuffers.cpp" />
     <ClCompile Include="g711.cpp" />
+    <ClCompile Include="G711AToPcm.cpp" />
+    <ClCompile Include="IDecodeToPcm.cpp" />
     <ClCompile Include="libfaac\aacquant.c" />
     <ClCompile Include="libfaac\backpred.c" />
     <ClCompile Include="libfaac\bitstream.c" />
@@ -109,10 +112,13 @@
     <ClCompile Include="libfaac\util.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="audio_buffer.h" />
     <ClInclude Include="EasyAACEncoder.h" />
     <ClInclude Include="EasyAACEncoderAPI.h" />
     <ClInclude Include="EasyDSSBuffers.h" />
     <ClInclude Include="g711.h" />
+    <ClInclude Include="G711AToPcm.h" />
+    <ClInclude Include="IDecodeToPcm.h" />
     <ClInclude Include="libfaac\aacquant.h" />
     <ClInclude Include="libfaac\backpred.h" />
     <ClInclude Include="libfaac\bitstream.h" />
@@ -132,6 +138,7 @@
     <ClInclude Include="libfaac\tns.h" />
     <ClInclude Include="libfaac\util.h" />
     <ClInclude Include="libfaac\version.h" />
+    <ClInclude Include="outDebug.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

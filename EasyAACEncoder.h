@@ -19,48 +19,16 @@ extern "C" {
 #include "EasyDSSBuffers.h"
 #include "EasyAACEncoderAPI.h"
 
-class audio_buffer
+#include "audio_buffer.h"
+#include "IDecodeToPcm.h"
+
+
+
+class PCMToAAC
 {
 public:
-    audio_buffer();
-    ~audio_buffer();
-    
-    int write_data(void *data, int len);
-    
-    int get_data(unsigned char *dest, int how_you_want);
-    
-    void update_data_len(int len);
-    
-    unsigned char *get_writable_ptr();
-    
-private:
-    unsigned char *data_;
-    int len_;
-};
-
-
-class InAudioInfo
-{
-public:
-	InAudioInfo(unsigned int u32AudioCodec=EASY_SDK_AUDIO_CODEC_G711A, unsigned int u32AudioSamplerate=8000, unsigned int u32AudioChannel=1);
-	~InAudioInfo(){;}
-
-	unsigned int CodecType()
-	{
-		return m_u32AudioCodec;
-	}
-	unsigned int Samplerate()
-	{
-		return m_u32AudioSamplerate;
-	}
-	unsigned int Channel()
-	{
-		return m_u32AudioChannel;
-	}
-private:
-	unsigned int m_u32AudioCodec;
-	unsigned int m_u32AudioSamplerate;
-	unsigned int m_u32AudioChannel;
+	int Encode();
+	//相当于 nRet = faacEncEncode(hEncoder, (int*) pbPCMBuffer, nInputSamples, pbAACBuffer, nMaxOutputBytes);
 };
 
 class g7712aac
@@ -77,6 +45,8 @@ public:
 private:
 	int aac_encode_base(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen);
 	int aac_encode_g711(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen , int type);
+
+	int aac_encode_obj(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen );
     
 private:        
     int nRet;
@@ -107,6 +77,8 @@ private:
 	{
 		return m_inAudioInfo.Samplerate();
 	}
+
+	IDecodeToPcm* m_pDecodeToPcm;
 };
 
 #endif	/* EasyAACEncoder_H */

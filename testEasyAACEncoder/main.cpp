@@ -18,8 +18,8 @@
 
 using namespace std;
 
-#define TEST_G711A_FILE       "src.g711a"  //私有
-//#define TEST_G711A_FILE       "g711.g711a"  //标准
+//#define TEST_G711A_FILE       "src.g711a"  //私有
+#define TEST_G711A_FILE       "g711.g711a"  //标准
 
 #define TEST_AAC_FILE         "dest.aac"
 

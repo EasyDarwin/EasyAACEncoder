@@ -2,6 +2,8 @@
 #ifndef __G_711_H_
 #define __G_711_H_
 
+#include <stdint.h>
+
 enum _e_g711_tp
 {
 	TP_ALAW,	//G711A
