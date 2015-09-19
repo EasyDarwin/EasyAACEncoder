@@ -47,10 +47,16 @@ public:
 	{
 		return m_u32AudioChannel;
 	}
+	unsigned int PCMBitSize()
+	{
+		return m_nPCMBitSize;
+	}
 private:
 	unsigned int m_u32AudioCodec;
 	unsigned int m_u32AudioSamplerate;
 	unsigned int m_u32AudioChannel;
+
+	unsigned int m_nPCMBitSize;
 };
 //-------------------------------------------------------------------------------------------------------------------------
 class DecodeToPcmBase:public IDecodeToPcm

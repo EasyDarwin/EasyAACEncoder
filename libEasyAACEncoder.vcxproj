@@ -110,6 +110,7 @@
     <ClCompile Include="libfaac\psychkni.c" />
     <ClCompile Include="libfaac\tns.c" />
     <ClCompile Include="libfaac\util.c" />
+    <ClCompile Include="PcmToAac.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio_buffer.h" />
@@ -139,6 +140,7 @@
     <ClInclude Include="libfaac\util.h" />
     <ClInclude Include="libfaac\version.h" />
     <ClInclude Include="outDebug.h" />
+    <ClInclude Include="PcmToAac.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

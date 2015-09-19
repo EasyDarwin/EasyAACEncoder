@@ -21,15 +21,9 @@ extern "C" {
 
 #include "audio_buffer.h"
 #include "IDecodeToPcm.h"
+#include "PcmToAac.h"
 
 
-
-class PCMToAAC
-{
-public:
-	int Encode();
-	//相当于 nRet = faacEncEncode(hEncoder, (int*) pbPCMBuffer, nInputSamples, pbAACBuffer, nMaxOutputBytes);
-};
 
 class g7712aac
 {
@@ -37,6 +31,7 @@ public:
     g7712aac();
     virtual ~g7712aac();
     
+	int init2();
     int init();
 	int init(InAudioInfo info);
     
@@ -79,6 +74,7 @@ private:
 	}
 
 	IDecodeToPcm* m_pDecodeToPcm;
+	PcmToAac* m_pPCMToAAC;
 };
 
 #endif	/* EasyAACEncoder_H */
