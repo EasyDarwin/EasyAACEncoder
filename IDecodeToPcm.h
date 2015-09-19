@@ -6,6 +6,7 @@
 #include "EasyAACEncoderAPI.h"
 
 #define USE_SHOUT_G711PACK 1
+
 #if USE_SHOUT_G711PACK
 #define G711_ONE_LEN 160
 #define G711_ONE_OFFSET 0
@@ -26,7 +27,10 @@ public:
 	virtual ~IDecodeToPcm(void);
 
 public:
+	virtual int Init()=0;
 	virtual int Decode( unsigned char* outbuf, unsigned int* outlen , unsigned char* inbuf, unsigned int inlen)=0;
+	virtual int PCMSize()=0;
+	virtual int G7FrameSize()=0;
 };
 //----------------------------------------------------------------------------------------------------------------------
 class InAudioInfo
@@ -69,8 +73,13 @@ public:
 
 public:
 	virtual int Decode(unsigned char* outbuf, unsigned int* outlen , unsigned char* inbuf, unsigned int inlen);
+	virtual int PCMSize();
+	virtual int G7FrameSize();
 
 	virtual unsigned short DecodeOneChar(unsigned char data)=0;
+
+private:
+	int m_g7FrameSize;
 };
 
 #endif

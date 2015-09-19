@@ -52,9 +52,17 @@ DecodeToPcmBase::~DecodeToPcmBase(void)
 
 int DecodeToPcmBase::Init()
 {
+	m_g7FrameSize = G711_ONE_LEN;
 	return 0;
 }
-
+int DecodeToPcmBase::PCMSize()
+{
+	return CON_PCM_SIZE;
+}
+int DecodeToPcmBase::G7FrameSize()
+{
+	return m_g7FrameSize;
+}
 int DecodeToPcmBase::Decode(unsigned char* pout_buf, unsigned int* pout_len , unsigned char* pin_buf, unsigned int in_len)
 {
 	int16_t *dst = (int16_t *) pout_buf;

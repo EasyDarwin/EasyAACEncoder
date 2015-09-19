@@ -156,6 +156,7 @@
     <ClInclude Include="libfaac\util.h">
       <Filter>other</Filter>
     </ClInclude>
+    <ClInclude Include="condef.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="my_h">

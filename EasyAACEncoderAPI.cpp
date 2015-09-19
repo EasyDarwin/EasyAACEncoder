@@ -16,7 +16,7 @@
 
 Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init(unsigned int u32AudioCodec, unsigned int u32AudioSamplerate, unsigned int u32AudioChannel)
 {
-    g7712aac *encoder = new g7712aac();
+    G7ToAac *encoder = new G7ToAac();
     //encoder->init();
 
 	InAudioInfo info(u32AudioCodec , u32AudioSamplerate , u32AudioChannel );
@@ -32,14 +32,14 @@ Easy_API int Easy_APICALL Easy_AACEncoder_Encode(EasyAACEncoder_Handle handle, u
     {
         return -1;
     }
-    return ((g7712aac*)handle)->aac_encode(inbuf, inlen, outbuf, outlen);
+    return ((G7ToAac*)handle)->aac_encode(inbuf, inlen, outbuf, outlen);
 }
 
 Easy_API void Easy_APICALL Easy_AACEncoder_Release(EasyAACEncoder_Handle handle)
 {
     if(handle != NULL)
     {
-        delete ((g7712aac*)handle);
+        delete ((G7ToAac*)handle);
     }
 }
 

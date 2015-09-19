@@ -13,11 +13,7 @@
 
 #ifndef EasyAACEncoder_H
 #define	EasyAACEncoder_H
-extern "C" {
-#include <faac.h>
-}
-#include "EasyDSSBuffers.h"
-#include "EasyAACEncoderAPI.h"
+
 
 #include "audio_buffer.h"
 #include "IDecodeToPcm.h"
@@ -25,53 +21,47 @@ extern "C" {
 
 
 
-class g7712aac
+class G7ToAac
 {
 public:
-    g7712aac();
-    virtual ~g7712aac();
+    G7ToAac();
+    virtual ~G7ToAac();
     
-	int init2();
-    int init();
+	int init();
 	int init(InAudioInfo info);
     
     int aac_encode(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen);
 
 private:
-	int aac_encode_base(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen);
-	int aac_encode_g711(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen , int type);
-
 	int aac_encode_obj(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen );
     
+	bool CreateDecodePcm();
+	bool CreateEncodeAac();
+	bool CreateBuffer();
 private:        
     int nRet;
     int nTmp;
     int nCount;
     int nStatus; 
     int nPCMRead;
-    int PCMSize;    
-    int nPCMBufferSize;
-    unsigned long nInputSamples;
-    unsigned long nMaxOutputBytes;
-    unsigned int nPCMBitSize;
-    unsigned char *pbPCMBuffer;
-    unsigned char *pbAACBuffer;
-    audio_buffer *audio_buffer_;
-    unsigned char *pbG711ABuffer;
-    unsigned char *pbPCMTmpBuffer; 
-    faacEncHandle hEncoder;
-    faacEncConfigurationPtr pConfiguration;
+ 
 
+
+    int m_nPCMBufferSize;
+    unsigned char *m_pbPCMBuffer;
+
+    unsigned long m_nMaxOutputBytes;
+    unsigned char *m_pbAACBuffer;
+
+    int m_nPCMSize;   
+    unsigned char *m_pbPCMTmpBuffer; 
+
+	unsigned char *m_pbG7FrameBuffer;
+	unsigned long m_nG7FrameBufferSize;
+
+    audio_buffer *m_audio_buffer_;
 	//------
 	InAudioInfo m_inAudioInfo;
-	unsigned int GetAudioChannel()
-	{
-		return m_inAudioInfo.Channel();
-	}
-	unsigned int GetAudioSamplerate()
-	{
-		return m_inAudioInfo.Samplerate();
-	}
 
 	IDecodeToPcm* m_pDecodeToPcm;
 	PcmToAac* m_pPCMToAAC;

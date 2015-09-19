@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio_buffer.h" />
+    <ClInclude Include="condef.h" />
     <ClInclude Include="EasyAACEncoder.h" />
     <ClInclude Include="EasyAACEncoderAPI.h" />
     <ClInclude Include="EasyDSSBuffers.h" />

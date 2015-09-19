@@ -21,7 +21,6 @@ PcmToAac::~PcmToAac(void)
 }
 
 bool PcmToAac::Init(InAudioInfo* info)
-//bool PcmToAac::Open(unsigned long /*sampleRate*/nSampleRate, unsigned int /*numChannels*/nChannels, unsigned long *inputSamples, unsigned long *maxOutputBytes)
 {
 	unsigned int objectType = LOW;
 	unsigned int mpegVersion = MPEG2;

@@ -31,6 +31,10 @@ public:
 	{
 		return m_nMaxOutputBytes;
 	}
+	unsigned int GetPCMBufferSize()
+	{
+		return (m_nInputSamples * (m_nPCMBitSize / 8));
+	}
 
 
 private:
