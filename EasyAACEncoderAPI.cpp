@@ -13,16 +13,18 @@
 
 #include "EasyAACEncoderAPI.h"
 #include "EasyAACEncoder.h"
+#include "condef.h"
 
-Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init(unsigned int u32AudioCodec, unsigned int u32AudioSamplerate, unsigned int u32AudioChannel)
+
+Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init(InitParam initPar)
 {
     G7ToAac *encoder = new G7ToAac();
-    //encoder->init();
-
-	InAudioInfo info(u32AudioCodec , u32AudioSamplerate , u32AudioChannel );
-	encoder->init(info);
-
-
+	InAudioInfo info(initPar );
+	bool ret = encoder->init(info);
+	if (!ret)
+	{
+		SAFE_DELETE_OBJ(encoder);
+	}
     return encoder;
 }
 

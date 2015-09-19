@@ -70,6 +70,10 @@
     <ClCompile Include="libfaac\util.c">
       <Filter>other</Filter>
     </ClCompile>
+    <ClCompile Include="G726ToPcm.cpp">
+      <Filter>my_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="g726.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EasyAACEncoder.h">
@@ -156,7 +160,13 @@
     <ClInclude Include="libfaac\util.h">
       <Filter>other</Filter>
     </ClInclude>
-    <ClInclude Include="condef.h" />
+    <ClInclude Include="condef.h">
+      <Filter>my_h</Filter>
+    </ClInclude>
+    <ClInclude Include="G726ToPcm.h">
+      <Filter>my_h</Filter>
+    </ClInclude>
+    <ClInclude Include="g726.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="my_h">

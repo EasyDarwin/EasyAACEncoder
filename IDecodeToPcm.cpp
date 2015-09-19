@@ -19,23 +19,17 @@ IDecodeToPcm::~IDecodeToPcm(void)
 
 }
 //------------------------------------------------------------------------------------------------------------------------
-InAudioInfo::InAudioInfo(unsigned int u32AudioCodec/*=EASY_SDK_AUDIO_CODEC_G711A*/, unsigned int u32AudioSamplerate/*=8000*/, unsigned int u32AudioChannel/*=1*/):
-m_u32AudioCodec(u32AudioCodec),m_u32AudioChannel(u32AudioChannel),m_u32AudioSamplerate(u32AudioSamplerate)
+InAudioInfo::InAudioInfo()
 {
-	if (0 == u32AudioCodec)
-	{
-		m_u32AudioCodec = EASY_SDK_AUDIO_CODEC_G711A;
-	}
-	if (0 == u32AudioChannel)
-	{
-		m_u32AudioChannel = 1;
-	}
-	if (0 == u32AudioSamplerate)
-	{
-		m_u32AudioSamplerate = 8000;
-	}
+	InitParam& initParam = m_initparam;
+	initParam.u32AudioSamplerate=8000;
+	initParam.ucAudioChannel=1;
+	initParam.u32PCMBitSize=16;
+	initParam.ucAudioCodec = Law_ALaw;
+}
+InAudioInfo::InAudioInfo(InitParam param):m_initparam(param)
+{
 
-	m_nPCMBitSize = 16;
 }
 //------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
@@ -50,7 +44,7 @@ DecodeToPcmBase::~DecodeToPcmBase(void)
 
 }
 
-int DecodeToPcmBase::Init()
+int DecodeToPcmBase::Init(InAudioInfo info)
 {
 	m_g7FrameSize = G711_ONE_LEN;
 	return 0;

@@ -27,8 +27,8 @@ public:
     G7ToAac();
     virtual ~G7ToAac();
     
-	int init();
-	int init(InAudioInfo info);
+	bool init();
+	bool init(InAudioInfo info);
     
     int aac_encode(unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen);
 

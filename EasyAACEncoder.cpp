@@ -17,12 +17,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "g711.h"
+//#include "g711.h"
 
 #include "EasyAACEncoderAPI.h"
 
 #include "outDebug.h"
 #include "G711AToPcm.h"
+#include "G726ToPcm.h"
 #include "condef.h"
 
 
@@ -54,7 +55,7 @@ G7ToAac::~G7ToAac()
 	SAFE_DELETE_OBJ(m_pPCMToAAC);
 
 }
-int G7ToAac::init()
+bool G7ToAac::init()
 {
 	nRet = 0;
 	nTmp = 0;
@@ -66,10 +67,10 @@ int G7ToAac::init()
 
 	CreateBuffer();
 
-	return 0;
+	return true;
 }
 
-int G7ToAac::init(InAudioInfo info)
+bool G7ToAac::init(InAudioInfo info)
 {
 	m_inAudioInfo = info;
 
@@ -79,23 +80,26 @@ int G7ToAac::init(InAudioInfo info)
 	ret = CreateEncodeAac();
 	if (!ret)
 	{
-		return -1;
+		return false;
 	}
 	return init();
 }
 bool G7ToAac::CreateDecodePcm()
 {
-	if ( EASY_SDK_AUDIO_CODEC_G711A == m_inAudioInfo.CodecType())
+	if ( Law_ALaw == m_inAudioInfo.CodecType())
 	{
 		m_pDecodeToPcm = new G711AToPcm();
-	}else if ( EASY_SDK_AUDIO_CODEC_G711U == m_inAudioInfo.CodecType() )
+	}else if ( Law_ULaw == m_inAudioInfo.CodecType() )
 	{
 		m_pDecodeToPcm = new G711UToPcm();
+	}else if ( Law_G726 == m_inAudioInfo.CodecType())
+	{
+		m_pDecodeToPcm = new G726ToPcm();
 	}else
 	{
 		m_pDecodeToPcm = new G711AToPcm();
 	}
-	m_pDecodeToPcm->Init();
+	m_pDecodeToPcm->Init(m_inAudioInfo);
 
 	return true;
 }
@@ -145,6 +149,7 @@ int G7ToAac::aac_encode_obj(unsigned char* inbuf, unsigned int inlen, unsigned c
 	m_audio_buffer_->write_data(inbuf, inlen);
 	int buffer_len = 0;
 	*outlen = 0;
+	int nPCMSize = 0;
 	//while ((buffer_len = audio_buffer_->get_data(pbG711ABuffer, /*164*/G711_ONE_LEN)) > 0)
 	while ((buffer_len = m_audio_buffer_->get_data(m_pbG7FrameBuffer, m_nG7FrameBufferSize)) > 0)
 	{
@@ -157,8 +162,9 @@ int G7ToAac::aac_encode_obj(unsigned char* inbuf, unsigned int inlen, unsigned c
 
 		nStatus = 0;        
 		memset(m_pbPCMTmpBuffer, 0, m_nPCMSize);
+		nPCMSize = m_nPCMSize;
 		//if ((nPCMRead = m_pDecodeToPcm->Decode(pbPCMTmpBuffer, (unsigned int*)&PCMSize, pbG711ABuffer+/*4*/G711_ONE_OFFSET, buffer_len-/*4*/G711_ONE_OFFSET )) < 0) // TODO: skip 4 byte?
-		if ((nPCMRead = m_pDecodeToPcm->Decode(m_pbPCMTmpBuffer, (unsigned int*)&m_nPCMSize, m_pbG7FrameBuffer, buffer_len )) < 0) // TODO: skip 4 byte?
+		if ((nPCMRead = m_pDecodeToPcm->Decode(m_pbPCMTmpBuffer, (unsigned int*)&nPCMSize, m_pbG7FrameBuffer, buffer_len )) < 0) // TODO: skip 4 byte?
 		{
 			if(AAC_DEBUG) printf("%s:[%d] G711A -> PCM  failed buffer_len = %d !\n", __FUNCTION__, __LINE__, buffer_len);            
 			return -1;

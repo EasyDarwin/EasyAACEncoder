@@ -20,40 +20,36 @@ const int CON_PCM_SIZE = 320;
 
 class audio_buffer;
 
-class IDecodeToPcm
-{
-public:
-	IDecodeToPcm(void);
-	virtual ~IDecodeToPcm(void);
-
-public:
-	virtual int Init()=0;
-	virtual int Decode( unsigned char* outbuf, unsigned int* outlen , unsigned char* inbuf, unsigned int inlen)=0;
-	virtual int PCMSize()=0;
-	virtual int G7FrameSize()=0;
-};
-//----------------------------------------------------------------------------------------------------------------------
 class InAudioInfo
 {
 public:
-	InAudioInfo(unsigned int u32AudioCodec=EASY_SDK_AUDIO_CODEC_G711A, unsigned int u32AudioSamplerate=8000, unsigned int u32AudioChannel=1);
+	InAudioInfo();
+	InAudioInfo(InitParam param);
 	~InAudioInfo(){;}
 
 	unsigned int CodecType()
 	{
-		return m_u32AudioCodec;
+		return m_initparam.ucAudioCodec;
+		//return m_u32AudioCodec;
 	}
 	unsigned int Samplerate()
 	{
-		return m_u32AudioSamplerate;
+		return m_initparam.u32AudioSamplerate;
+		//return m_u32AudioSamplerate;
 	}
 	unsigned int Channel()
 	{
-		return m_u32AudioChannel;
+		return m_initparam.ucAudioChannel;
+		//return m_u32AudioChannel;
 	}
 	unsigned int PCMBitSize()
 	{
-		return m_nPCMBitSize;
+		return m_initparam.u32PCMBitSize;
+		//return m_nPCMBitSize;
+	}
+	unsigned char G726RateBits()
+	{
+		return m_initparam.g726param.ucRateBits;
 	}
 private:
 	unsigned int m_u32AudioCodec;
@@ -61,7 +57,24 @@ private:
 	unsigned int m_u32AudioChannel;
 
 	unsigned int m_nPCMBitSize;
+
+	InitParam m_initparam;
 };
+//----------------------------------------------------------
+class IDecodeToPcm
+{
+public:
+	IDecodeToPcm(void);
+	virtual ~IDecodeToPcm(void);
+
+public:
+	virtual int Init(InAudioInfo info)=0;
+	virtual int Decode( unsigned char* outbuf, unsigned int* outlen , unsigned char* inbuf, unsigned int inlen)=0;
+	virtual int PCMSize()=0;
+	virtual int G7FrameSize()=0;
+};
+//----------------------------------------------------------------------------------------------------------------------
+
 //-------------------------------------------------------------------------------------------------------------------------
 class DecodeToPcmBase:public IDecodeToPcm
 {
@@ -69,7 +82,7 @@ public:
 	DecodeToPcmBase();
 	virtual ~DecodeToPcmBase();
 
-	int Init();
+	int Init(InAudioInfo info);
 
 public:
 	virtual int Decode(unsigned char* outbuf, unsigned int* outlen , unsigned char* inbuf, unsigned int inlen);

@@ -17,18 +17,53 @@
 
 #define EasyAACEncoder_Handle void*
 
-/* 音频编码 */
-#define EASY_SDK_AUDIO_CODEC_AAC	0x01000011		/* AAC */
-#define EASY_SDK_AUDIO_CODEC_G711A	0x01000012		/* G711 alaw*/
-#define EASY_SDK_AUDIO_CODEC_G711U	0x01000014		/* G711 ulaw*/
-#define EASY_SDK_AUDIO_CODEC_G726	0x01000018		/* G726 */
+///* 音频编码 */
+enum Law
+{
+	Law_ULaw=0, 	/**< U law */
+	Law_ALaw=1, 	/**< A law */
+	Law_PCM16=2, 	/**< 16 bit uniform PCM values. 原始 pcm 数据 */  
+	Law_G726=3		// g726数据
+};
+enum Rate
+{
+	Rate16kBits=2,	/**< 16k bits per second (2 bits per ADPCM sample) */
+	Rate24kBits=3,	/**< 24k bits per second (3 bits per ADPCM sample) */
+	Rate32kBits=4,	/**< 32k bits per second (4 bits per ADPCM sample) */
+	Rate40kBits=5	/**< 40k bits per second (5 bits per ADPCM sample) */
+};
+
+typedef struct _g711param
+{
+
+}G711Param;
+typedef struct _g726param
+{
+	unsigned char ucRateBits;//Rate16kBits Rate24kBits Rate32kBits Rate40kBits
+}G726Param;
+
+typedef struct _initParam
+{
+	unsigned char ucAudioCodec;// Law_uLaw  Law_ALaw Law_PCM16 Law_G726
+	unsigned char ucAudioChannel;//1
+	unsigned int u32AudioSamplerate;//8000
+	unsigned int u32PCMBitSize;//16
+	union
+	{
+		G711Param g711param;
+		G726Param g726param;
+	};
+
+}InitParam;
+
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 	/* 创建AAC Encoder 返回为句柄值 */
-	Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init(unsigned int u32AudioCodec, unsigned int u32AudioSamplerate, unsigned int u32AudioChannel);
+	Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init(InitParam initPar);
+
 
 	/* 输入编码数据，返回编码后数据 */
 	Easy_API int Easy_APICALL Easy_AACEncoder_Encode(EasyAACEncoder_Handle handle, unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen);
