@@ -20,10 +20,10 @@
 ///* 音频编码 */
 enum Law
 {
-	Law_ULaw=0, 	/**< U law */
-	Law_ALaw=1, 	/**< A law */
-	Law_PCM16=2, 	/**< 16 bit uniform PCM values. 原始 pcm 数据 */  
-	Law_G726=3		// g726数据
+	Law_ULaw	=	0, 		/**< U law */
+	Law_ALaw	=	1, 		/**< A law */
+	Law_PCM16	=	2, 		/**< 16 bit uniform PCM values. 原始 pcm 数据 */  
+	Law_G726	=	3		/**< G726 */
 };
 enum Rate
 {
@@ -44,10 +44,10 @@ typedef struct _g726param
 
 typedef struct _initParam
 {
-	unsigned char ucAudioCodec;// Law_uLaw  Law_ALaw Law_PCM16 Law_G726
-	unsigned char ucAudioChannel;//1
-	unsigned int u32AudioSamplerate;//8000
-	unsigned int u32PCMBitSize;//16
+	unsigned char	ucAudioCodec;			// Law_uLaw  Law_ALaw Law_PCM16 Law_G726
+	unsigned char	ucAudioChannel;			//1
+	unsigned int	u32AudioSamplerate;		//8000
+	unsigned int	u32PCMBitSize;			//16
 	union
 	{
 		G711Param g711param;
@@ -63,7 +63,6 @@ extern "C"
 #endif
 	/* 创建AAC Encoder 返回为句柄值 */
 	Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init(InitParam initPar);
-
 
 	/* 输入编码数据，返回编码后数据 */
 	Easy_API int Easy_APICALL Easy_AACEncoder_Encode(EasyAACEncoder_Handle handle, unsigned char* inbuf, unsigned int inlen, unsigned char* outbuf, unsigned int* outlen);

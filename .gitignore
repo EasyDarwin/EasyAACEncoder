@@ -19,6 +19,7 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
+*.aac
 [Dd]ebug*/
 *.lib
 *.sbr
@@ -34,5 +35,3 @@ _ReSharper*/
 [Pp]rivate*/
 ipch/
 *.opensdf
-*.suo
-*.aac

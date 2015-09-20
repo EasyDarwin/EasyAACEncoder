@@ -15,7 +15,6 @@
 #include "EasyAACEncoder.h"
 #include "condef.h"
 
-
 Easy_API EasyAACEncoder_Handle Easy_APICALL Easy_AACEncoder_Init(InitParam initPar)
 {
     G7ToAac *encoder = new G7ToAac();
