@@ -12,16 +12,24 @@ CND_ARTIFACT_DIR_Debug=${AVS_ROOT}/lib
 CND_ARTIFACT_NAME_Debug=libg7112aac.so
 CND_ARTIFACT_PATH_Debug=${AVS_ROOT}/lib/libg7112aac.so
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=liblibg7112aac.so.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/liblibg7112aac.so.tar
-# Release configuration
-CND_PLATFORM_Release=GNU-Linux-x86
-CND_ARTIFACT_DIR_Release=${AVS_ROOT}/lib
-CND_ARTIFACT_NAME_Release=libg7112aac.a
-CND_ARTIFACT_PATH_Release=${AVS_ROOT}/lib/libg7112aac.a
-CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=libg7112aac.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/libg7112aac.tar
+CND_PACKAGE_NAME_Debug=libEasyAACEncoder.so.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/libEasyAACEncoder.so.tar
+# i386 configuration
+CND_PLATFORM_i386=GNU-Linux-x86
+CND_ARTIFACT_DIR_i386=i386
+CND_ARTIFACT_NAME_i386=libEasyAACEncoder.a
+CND_ARTIFACT_PATH_i386=i386/libEasyAACEncoder.a
+CND_PACKAGE_DIR_i386=dist/i386/GNU-Linux-x86/package
+CND_PACKAGE_NAME_i386=EasyAACEncoder.tar
+CND_PACKAGE_PATH_i386=dist/i386/GNU-Linux-x86/package/EasyAACEncoder.tar
+# x64 configuration
+CND_PLATFORM_x64=GNU-Linux-x86
+CND_ARTIFACT_DIR_x64=x64
+CND_ARTIFACT_NAME_x64=libEasyAACEncoder.a
+CND_ARTIFACT_PATH_x64=x64/libEasyAACEncoder.a
+CND_PACKAGE_DIR_x64=dist/x64/GNU-Linux-x86/package
+CND_PACKAGE_NAME_x64=EasyAACEncoder.tar
+CND_PACKAGE_PATH_x64=dist/x64/GNU-Linux-x86/package/EasyAACEncoder.tar
 #
 # include compiler specific variables
 #

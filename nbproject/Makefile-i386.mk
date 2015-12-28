@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=GNU-Linux-x86
 CND_DLIB_EXT=so
-CND_CONF=Release
+CND_CONF=i386
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -35,8 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/EasyAACEncoder.o \
+	${OBJECTDIR}/EasyAACEncoderAPI.o \
 	${OBJECTDIR}/EasyDSSBuffers.o \
-	${OBJECTDIR}/g7712aac.o \
 	${OBJECTDIR}/libfaac/aacquant.o \
 	${OBJECTDIR}/libfaac/backpred.o \
 	${OBJECTDIR}/libfaac/bitstream.o \
@@ -51,16 +52,15 @@ OBJECTFILES= \
 	${OBJECTDIR}/libfaac/midside.o \
 	${OBJECTDIR}/libfaac/psychkni.o \
 	${OBJECTDIR}/libfaac/tns.o \
-	${OBJECTDIR}/libfaac/util.o \
-	${OBJECTDIR}/libg7112aac.o
+	${OBJECTDIR}/libfaac/util.o
 
 
 # C Compiler Flags
-CFLAGS=
+CFLAGS=-m32
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-m32
+CXXFLAGS=-m32
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -73,23 +73,28 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${AVS_ROOT}/lib/libg7112aac.a
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_CONF}/libEasyAACEncoder.a
 
-${AVS_ROOT}/lib/libg7112aac.a: ${OBJECTFILES}
-	${MKDIR} -p ${AVS_ROOT}/lib
-	${RM} ${AVS_ROOT}/lib/libg7112aac.a
-	${AR} -rv ${AVS_ROOT}/lib/libg7112aac.a ${OBJECTFILES} 
-	$(RANLIB) ${AVS_ROOT}/lib/libg7112aac.a
+${CND_CONF}/libEasyAACEncoder.a: ${OBJECTFILES}
+	${MKDIR} -p ${CND_CONF}
+	${RM} ${CND_CONF}/libEasyAACEncoder.a
+	${AR} -rv ${CND_CONF}/libEasyAACEncoder.a ${OBJECTFILES} 
+	$(RANLIB) ${CND_CONF}/libEasyAACEncoder.a
+
+${OBJECTDIR}/EasyAACEncoder.o: EasyAACEncoder.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyAACEncoder.o EasyAACEncoder.cpp
+
+${OBJECTDIR}/EasyAACEncoderAPI.o: EasyAACEncoderAPI.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyAACEncoderAPI.o EasyAACEncoderAPI.cpp
 
 ${OBJECTDIR}/EasyDSSBuffers.o: EasyDSSBuffers.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iinclude -I${AVS_ROOT}/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyDSSBuffers.o EasyDSSBuffers.cpp
-
-${OBJECTDIR}/g7712aac.o: g7712aac.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iinclude -I${AVS_ROOT}/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/g7712aac.o g7712aac.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyDSSBuffers.o EasyDSSBuffers.cpp
 
 ${OBJECTDIR}/libfaac/aacquant.o: libfaac/aacquant.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
@@ -166,18 +171,13 @@ ${OBJECTDIR}/libfaac/util.o: libfaac/util.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/util.o libfaac/util.c
 
-${OBJECTDIR}/libg7112aac.o: libg7112aac.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iinclude -I${AVS_ROOT}/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libg7112aac.o libg7112aac.cpp
-
 # Subprojects
 .build-subprojects:
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${AVS_ROOT}/lib/libg7112aac.a
+	${RM} ${CND_CONF}/libEasyAACEncoder.a
 
 # Subprojects
 .clean-subprojects:

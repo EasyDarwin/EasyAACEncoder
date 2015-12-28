@@ -1,5 +1,5 @@
 #pragma once
-#include "idecodetopcm.h"
+#include "IDecodeToPcm.h"
 
 class G711AToPcm :
 	public DecodeToPcmBase

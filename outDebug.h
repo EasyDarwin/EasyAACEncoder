@@ -6,6 +6,7 @@
 #define DBG_MSG_BUFF_SIZE 3000
 #define FILE_NAME "-EasyAAC-"
 
+#ifndef __linux__
 #include <Windows.h>
 #include <tchar.h>
 #include <mmsystem.h>
@@ -28,7 +29,15 @@
 	}\
 }
 
-
+#else
+#define INFO_D(OUT,fmt, ...)\
+{ \
+	if(OUT)\
+	{\
+	printf(fmt, ##__VA_ARGS__);\
+	}\
+}
+#endif
 
 
 #define AAC_DEBUG 0
