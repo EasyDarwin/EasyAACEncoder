@@ -24,9 +24,19 @@
     <itemPath>EasyAACEncoderAPI.h</itemPath>
     <itemPath>EasyDSSBuffers.cpp</itemPath>
     <itemPath>EasyDSSBuffers.h</itemPath>
+    <itemPath>G711AToPcm.cpp</itemPath>
+    <itemPath>G711AToPcm.h</itemPath>
+    <itemPath>G726ToPcm.cpp</itemPath>
+    <itemPath>G726ToPcm.h</itemPath>
+    <itemPath>IDecodeToPcm.cpp</itemPath>
+    <itemPath>IDecodeToPcm.h</itemPath>
+    <itemPath>PcmToAac.cpp</itemPath>
+    <itemPath>PcmToAac.h</itemPath>
     <itemPath>libfaac/kiss_fft/_kiss_fft_guts.h</itemPath>
     <itemPath>libfaac/aacquant.c</itemPath>
     <itemPath>libfaac/aacquant.h</itemPath>
+    <itemPath>audio_buffer.cpp</itemPath>
+    <itemPath>audio_buffer.h</itemPath>
     <itemPath>libfaac/backpred.c</itemPath>
     <itemPath>libfaac/backpred.h</itemPath>
     <itemPath>libfaac/bitstream.c</itemPath>
@@ -40,6 +50,10 @@
     <itemPath>libfaac/filtbank.h</itemPath>
     <itemPath>libfaac/frame.c</itemPath>
     <itemPath>libfaac/frame.h</itemPath>
+    <itemPath>g711.cpp</itemPath>
+    <itemPath>g711.h</itemPath>
+    <itemPath>g726.cpp</itemPath>
+    <itemPath>g726.h</itemPath>
     <itemPath>libfaac/huffman.c</itemPath>
     <itemPath>libfaac/huffman.h</itemPath>
     <itemPath>libfaac/hufftab.h</itemPath>
@@ -98,6 +112,34 @@
       <item path="EasyDSSBuffers.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="EasyDSSBuffers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="G711AToPcm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="G711AToPcm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="G726ToPcm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="G726ToPcm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IDecodeToPcm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="IDecodeToPcm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PcmToAac.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PcmToAac.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="audio_buffer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="audio_buffer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="g711.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="g711.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="g726.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="g726.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="libfaac/aacquant.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -211,6 +253,34 @@
       </item>
       <item path="EasyDSSBuffers.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="G711AToPcm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="G711AToPcm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="G726ToPcm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="G726ToPcm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IDecodeToPcm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="IDecodeToPcm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PcmToAac.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PcmToAac.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="audio_buffer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="audio_buffer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="g711.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="g711.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="g726.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="g726.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="libfaac/aacquant.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="libfaac/aacquant.h" ex="false" tool="3" flavor2="0">
@@ -320,6 +390,34 @@
       <item path="EasyDSSBuffers.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="EasyDSSBuffers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="G711AToPcm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="G711AToPcm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="G726ToPcm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="G726ToPcm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IDecodeToPcm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="IDecodeToPcm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PcmToAac.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PcmToAac.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="audio_buffer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="audio_buffer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="g711.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="g711.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="g726.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="g726.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="libfaac/aacquant.c" ex="false" tool="0" flavor2="0">
       </item>

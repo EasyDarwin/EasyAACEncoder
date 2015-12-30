@@ -38,6 +38,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/EasyAACEncoder.o \
 	${OBJECTDIR}/EasyAACEncoderAPI.o \
 	${OBJECTDIR}/EasyDSSBuffers.o \
+	${OBJECTDIR}/G711AToPcm.o \
+	${OBJECTDIR}/G726ToPcm.o \
+	${OBJECTDIR}/IDecodeToPcm.o \
+	${OBJECTDIR}/PcmToAac.o \
+	${OBJECTDIR}/audio_buffer.o \
+	${OBJECTDIR}/g711.o \
+	${OBJECTDIR}/g726.o \
 	${OBJECTDIR}/libfaac/aacquant.o \
 	${OBJECTDIR}/libfaac/backpred.o \
 	${OBJECTDIR}/libfaac/bitstream.o \
@@ -95,6 +102,41 @@ ${OBJECTDIR}/EasyDSSBuffers.o: EasyDSSBuffers.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyDSSBuffers.o EasyDSSBuffers.cpp
+
+${OBJECTDIR}/G711AToPcm.o: G711AToPcm.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/G711AToPcm.o G711AToPcm.cpp
+
+${OBJECTDIR}/G726ToPcm.o: G726ToPcm.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/G726ToPcm.o G726ToPcm.cpp
+
+${OBJECTDIR}/IDecodeToPcm.o: IDecodeToPcm.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/IDecodeToPcm.o IDecodeToPcm.cpp
+
+${OBJECTDIR}/PcmToAac.o: PcmToAac.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PcmToAac.o PcmToAac.cpp
+
+${OBJECTDIR}/audio_buffer.o: audio_buffer.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/audio_buffer.o audio_buffer.cpp
+
+${OBJECTDIR}/g711.o: g711.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/g711.o g711.cpp
+
+${OBJECTDIR}/g726.o: g726.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/g726.o g726.cpp
 
 ${OBJECTDIR}/libfaac/aacquant.o: libfaac/aacquant.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
