@@ -26,7 +26,7 @@
 ## 特殊说明 ##
 EasyAACEncoder目前支持的音视频格式：
 
-	///* Audio Codec */
+	/* Audio Codec */
 	enum Law
 	{
 		Law_ULaw	=	0, 		/**< U law */
@@ -35,7 +35,7 @@ EasyAACEncoder目前支持的音视频格式：
 		Law_G726	=	3		/**< G726 */
 	};
 	
-	///* Rate Bits */
+	/* Rate Bits */
 	enum Rate
 	{
 		Rate16kBits=2,	/**< 16k bits per second (2 bits per ADPCM sample) */
@@ -49,6 +49,8 @@ EasyAACEncoder目前支持的音视频格式：
 邮件：[support@easydarwin.org](mailto:support@easydarwin.org) 
 
 WEB：[www.EasyDarwin.org](http://www.easydarwin.org)
+
+Author：破/浪Leo，Arno，Wellsen
 
 Copyright &copy; EasyDarwin.org 2013-2016
 
