@@ -4,6 +4,7 @@
 	WEChat: EasyDarwin
 	Website: http://www.easydarwin.org
 */
+
 #ifndef _TOOLS_H_
 #define _TOOLS_H_
 

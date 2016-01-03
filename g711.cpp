@@ -4,7 +4,6 @@
  * u-law, A-law and linear PCM conversions.
  */
 
-
 //#include "stdafx.h"
 #include <stdint.h>
 #include <stdio.h>

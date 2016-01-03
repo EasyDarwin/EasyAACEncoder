@@ -4,6 +4,7 @@
 	WEChat: EasyDarwin
 	Website: http://www.easydarwin.org
 */
+
 #ifndef EasyAACEncoder_API_H
 #define	EasyAACEncoder_API_H
 

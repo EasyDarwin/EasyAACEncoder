@@ -6,7 +6,7 @@
 */
 /* 
  * File:   libEasyAACEncoder.cpp
- * Author: Wellsen
+ * Author: Wellsen@easydarwin.org
  * 
  * Created on 2015年4月11日, 上午10:57
  */

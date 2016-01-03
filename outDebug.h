@@ -1,10 +1,17 @@
+/*
+	Copyright (c) 2013-2015 EasyDarwin.ORG.  All rights reserved.
+	Github: https://github.com/EasyDarwin
+	WEChat: EasyDarwin
+	Website: http://www.easydarwin.org
+*/
+
 #ifndef _OUTDEBUG_H
 #define _OUTDEBUG_H
 
 
 
 #define DBG_MSG_BUFF_SIZE 3000
-#define FILE_NAME "-EasyAAC-"
+#define FILE_NAME "-EasyAACEncoder-"
 
 #ifndef __linux__
 #include <Windows.h>
