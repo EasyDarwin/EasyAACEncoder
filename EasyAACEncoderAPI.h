@@ -18,7 +18,7 @@
 
 #define EasyAACEncoder_Handle void*
 
-///* 音频编码 */
+///* Audio Codec */
 enum Law
 {
 	Law_ULaw	=	0, 		/**< U law */
@@ -26,6 +26,8 @@ enum Law
 	Law_PCM16	=	2, 		/**< 16 bit uniform PCM values. 原始 pcm 数据 */  
 	Law_G726	=	3		/**< G726 */
 };
+
+///* Rate Bits */
 enum Rate
 {
 	Rate16kBits=2,	/**< 16k bits per second (2 bits per ADPCM sample) */
@@ -38,6 +40,7 @@ typedef struct _g711param
 {
 	;
 }G711Param;
+
 typedef struct _g726param
 {
 	unsigned char ucRateBits;//Rate16kBits Rate24kBits Rate32kBits Rate40kBits
