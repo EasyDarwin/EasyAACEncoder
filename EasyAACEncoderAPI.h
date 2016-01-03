@@ -36,7 +36,7 @@ enum Rate
 
 typedef struct _g711param
 {
-
+	;
 }G711Param;
 typedef struct _g726param
 {
@@ -56,7 +56,6 @@ typedef struct _initParam
 	};
 
 }InitParam;
-
 
 #ifdef __cplusplus
 extern "C"
