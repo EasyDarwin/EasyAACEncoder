@@ -14,16 +14,16 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
+CC=arm-hisiv100-linux-uclibcgnueabi-gcc
+CCC=arm-hisiv100-linux-uclibcgnueabi-g++
+CXX=arm-hisiv100-linux-uclibcgnueabi-g++
 FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux
+CND_PLATFORM=hisiv100-Linux
 CND_DLIB_EXT=so
-CND_CONF=Debug
+CND_CONF=arm
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -76,140 +76,142 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L${AVS_ROOT}/lib
+LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${AVS_ROOT}/lib/libg7112aac.${CND_DLIB_EXT}
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_CONF}/libEasyAACEncoder.a
 
-${AVS_ROOT}/lib/libg7112aac.${CND_DLIB_EXT}: ${OBJECTFILES}
-	${MKDIR} -p ${AVS_ROOT}/lib
-	${LINK.cc} -o ${AVS_ROOT}/lib/libg7112aac.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -lboost_thread -lpthread -lrt -lboost_system -shared -fPIC
+${CND_CONF}/libEasyAACEncoder.a: ${OBJECTFILES}
+	${MKDIR} -p ${CND_CONF}
+	${RM} ${CND_CONF}/libEasyAACEncoder.a
+	${AR} -rv ${CND_CONF}/libEasyAACEncoder.a ${OBJECTFILES} 
+	$(RANLIB) ${CND_CONF}/libEasyAACEncoder.a
 
 ${OBJECTDIR}/EasyAACEncoder.o: EasyAACEncoder.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I${AVS_ROOT}/include -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyAACEncoder.o EasyAACEncoder.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyAACEncoder.o EasyAACEncoder.cpp
 
 ${OBJECTDIR}/EasyAACEncoderAPI.o: EasyAACEncoderAPI.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I${AVS_ROOT}/include -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyAACEncoderAPI.o EasyAACEncoderAPI.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyAACEncoderAPI.o EasyAACEncoderAPI.cpp
 
 ${OBJECTDIR}/EasyDSSBuffers.o: EasyDSSBuffers.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I${AVS_ROOT}/include -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyDSSBuffers.o EasyDSSBuffers.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EasyDSSBuffers.o EasyDSSBuffers.cpp
 
 ${OBJECTDIR}/G711AToPcm.o: G711AToPcm.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I${AVS_ROOT}/include -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/G711AToPcm.o G711AToPcm.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/G711AToPcm.o G711AToPcm.cpp
 
 ${OBJECTDIR}/G726ToPcm.o: G726ToPcm.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I${AVS_ROOT}/include -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/G726ToPcm.o G726ToPcm.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/G726ToPcm.o G726ToPcm.cpp
 
 ${OBJECTDIR}/IDecodeToPcm.o: IDecodeToPcm.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I${AVS_ROOT}/include -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/IDecodeToPcm.o IDecodeToPcm.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/IDecodeToPcm.o IDecodeToPcm.cpp
 
 ${OBJECTDIR}/PcmToAac.o: PcmToAac.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I${AVS_ROOT}/include -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PcmToAac.o PcmToAac.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PcmToAac.o PcmToAac.cpp
 
 ${OBJECTDIR}/audio_buffer.o: audio_buffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I${AVS_ROOT}/include -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/audio_buffer.o audio_buffer.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/audio_buffer.o audio_buffer.cpp
 
 ${OBJECTDIR}/g711.o: g711.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I${AVS_ROOT}/include -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/g711.o g711.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/g711.o g711.cpp
 
 ${OBJECTDIR}/g726.o: g726.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I${AVS_ROOT}/include -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/g726.o g726.cpp
+	$(COMPILE.cc) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/g726.o g726.cpp
 
 ${OBJECTDIR}/libfaac/aacquant.o: libfaac/aacquant.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/aacquant.o libfaac/aacquant.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/aacquant.o libfaac/aacquant.c
 
 ${OBJECTDIR}/libfaac/backpred.o: libfaac/backpred.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/backpred.o libfaac/backpred.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/backpred.o libfaac/backpred.c
 
 ${OBJECTDIR}/libfaac/bitstream.o: libfaac/bitstream.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/bitstream.o libfaac/bitstream.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/bitstream.o libfaac/bitstream.c
 
 ${OBJECTDIR}/libfaac/channels.o: libfaac/channels.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/channels.o libfaac/channels.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/channels.o libfaac/channels.c
 
 ${OBJECTDIR}/libfaac/fft.o: libfaac/fft.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/fft.o libfaac/fft.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/fft.o libfaac/fft.c
 
 ${OBJECTDIR}/libfaac/filtbank.o: libfaac/filtbank.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/filtbank.o libfaac/filtbank.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/filtbank.o libfaac/filtbank.c
 
 ${OBJECTDIR}/libfaac/frame.o: libfaac/frame.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/frame.o libfaac/frame.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/frame.o libfaac/frame.c
 
 ${OBJECTDIR}/libfaac/huffman.o: libfaac/huffman.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/huffman.o libfaac/huffman.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/huffman.o libfaac/huffman.c
 
 ${OBJECTDIR}/libfaac/kiss_fft/kiss_fft.o: libfaac/kiss_fft/kiss_fft.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac/kiss_fft
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/kiss_fft/kiss_fft.o libfaac/kiss_fft/kiss_fft.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/kiss_fft/kiss_fft.o libfaac/kiss_fft/kiss_fft.c
 
 ${OBJECTDIR}/libfaac/kiss_fft/kiss_fftr.o: libfaac/kiss_fft/kiss_fftr.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac/kiss_fft
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/kiss_fft/kiss_fftr.o libfaac/kiss_fft/kiss_fftr.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/kiss_fft/kiss_fftr.o libfaac/kiss_fft/kiss_fftr.c
 
 ${OBJECTDIR}/libfaac/ltp.o: libfaac/ltp.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/ltp.o libfaac/ltp.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/ltp.o libfaac/ltp.c
 
 ${OBJECTDIR}/libfaac/midside.o: libfaac/midside.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/midside.o libfaac/midside.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/midside.o libfaac/midside.c
 
 ${OBJECTDIR}/libfaac/psychkni.o: libfaac/psychkni.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/psychkni.o libfaac/psychkni.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/psychkni.o libfaac/psychkni.c
 
 ${OBJECTDIR}/libfaac/tns.o: libfaac/tns.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/tns.o libfaac/tns.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/tns.o libfaac/tns.c
 
 ${OBJECTDIR}/libfaac/util.o: libfaac/util.c 
 	${MKDIR} -p ${OBJECTDIR}/libfaac
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/util.o libfaac/util.c
+	$(COMPILE.c) -O2 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libfaac/util.o libfaac/util.c
 
 # Subprojects
 .build-subprojects:
@@ -217,7 +219,7 @@ ${OBJECTDIR}/libfaac/util.o: libfaac/util.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${AVS_ROOT}/lib/libg7112aac.${CND_DLIB_EXT}
+	${RM} ${CND_CONF}/libEasyAACEncoder.a
 
 # Subprojects
 .clean-subprojects:
