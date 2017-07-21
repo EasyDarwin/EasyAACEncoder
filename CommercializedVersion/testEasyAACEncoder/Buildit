@@ -1,0 +1,37 @@
+#!/bin/sh
+ 
+usage()
+{
+	echo "0. clean up ./Buildit clean"
+	echo "1. build 32bit program ./Buildit i386 [target in i386]"	
+	echo "2. build 64bit program ./Buildit x64 [target in x64]"
+	echo "3. build hisiv100 program ./Buildit hisiv100 [target in hisiv100]"
+	echo "4. build hisiv200 program ./Buildit hisiv200 [target in hisiv200]"
+	echo "5. build hisiv300 program ./Buildit hisiv300 [target in hisiv300]"
+	echo "6. build hisiv400 program ./Buildit hisiv400 [target in hisiv400]"	
+	#echo "3. build arm program for GM8126 ./Buildit arm [target in ARM]"
+	#echo "4. build arm program for Hisilicon3518 ./Buildit 3518 [target in hisiv100]"
+}
+ 
+if [ "$*" = "clean" ] ; then
+	make -f nbproject/Makefile-i386.mk QMAKE= SUBPROJECTS= .clean-conf
+	make -f nbproject/Makefile-x64.mk QMAKE= SUBPROJECTS= .clean-conf
+	make -f nbproject/Makefile-hisiv100.mk QMAKE= SUBPROJECTS= .clean-conf	
+	make -f nbproject/Makefile-hisiv200.mk QMAKE= SUBPROJECTS= .clean-conf		
+	make -f nbproject/Makefile-hisiv300.mk QMAKE= SUBPROJECTS= .clean-conf	
+	make -f nbproject/Makefile-hisiv400.mk QMAKE= SUBPROJECTS= .clean-conf
+elif [ "$*" = "i386" ] ; then
+   make -f nbproject/Makefile-i386.mk QMAKE= SUBPROJECTS= .build-conf
+elif [ "$*" = "hisiv100" ] ; then
+   make -f nbproject/Makefile-hisiv100.mk QMAKE= SUBPROJECTS= .build-conf
+elif [ "$*" = "hisiv200" ] ; then
+   make -f nbproject/Makefile-hisiv200.mk QMAKE= SUBPROJECTS= .build-conf
+elif [ "$*" = "hisiv300" ] ; then
+   make -f nbproject/Makefile-hisiv300.mk QMAKE= SUBPROJECTS= .build-conf
+elif [ "$*" = "hisiv400" ] ; then
+   make -f nbproject/Makefile-hisiv400.mk QMAKE= SUBPROJECTS= .build-conf
+elif [ "$*" = "x64" ] ; then
+    make -f nbproject/Makefile-x64.mk QMAKE= SUBPROJECTS= .build-conf
+else 
+	usage;
+fi
