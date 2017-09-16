@@ -1,6 +1,8 @@
 ## EasyAACEncoder ##
 
-**EasyAACEncoder** 是EasyDarwin开源流媒体服务团队整理、开发的一款音频转码到AAC的工具库，目前支持G711a/G711u/G726/PCM等音频格式的转码，跨平台，支持Windows/Linux/arm.
+**EasyAACEncoder** 是EasyDarwin开源流媒体服务团队整理、开发的一款音频转码到AAC的工具库，目前支持G711a/G711u/G726/PCM等音频格式的转码，跨平台，支持Windows（32&64）/Linux（32&64）/ARM各平台；
+
+> 我们发现在类似于hisi海思芯片的大部分ARM系统中，对浮点运算的支持都不是很好，效率非常低，导致在ARM设备中直接将PCM类型音频转成AAC时，效率非常低，于是我们根据特定的ARM平台定制整理出了一套商用版本的音频转码EasyAACEncoder SDK，目前海思（hisiv100、hisiv200、hisiv300、hisiv400）全系列均已支持，CPU占用率极低，能非常好地满足ARM平台的AAC音频转码需求！
 
 
 ## 调用示例 ##
@@ -9,7 +11,7 @@
 
 	Windows编译方法，
 
-    	Visual Studio 2010 编译：./EasyAACEncoder-master/EasyAACEncoder.sln
+    	Visual Studio 2010 编译：./OpenSourceVersion/EasyAACEncoder-master/EasyAACEncoder.sln
 
 	Linux编译方法，
 		
@@ -17,7 +19,7 @@
 		./Buildit
 
 
-- **ARM版本的EasyAACEncoder库可自行编译**；
+- **ARM版本的EasyAACEncoder建议采用/CommercializedVersion/目录中的商用版本，目前已经定制了hisiv100、hisiv200、hisiv300、hisiv400多个平台，如需其他ARM平台版本，请发送邮件support@easydarwin.org，附上对应ARM平台的交叉编译工具链，我们为您定制开发对应版本的EasyAACEncoder转码库！**；
 
 ## 调用过程 ##
 ![](http://www.easydarwin.org/skin/easydarwin/images/easyaacencoder20160103.png)
@@ -50,7 +52,7 @@ EasyAACEncoder目前支持的音视频格式：
 
 WEB：[www.EasyDarwin.org](http://www.easydarwin.org)
 
-Author：破/浪Leo，Arno，Wellsen
+Author：Leo，Kim，Wellsen
 
 Copyright &copy; EasyDarwin.org 2012-2017
 
