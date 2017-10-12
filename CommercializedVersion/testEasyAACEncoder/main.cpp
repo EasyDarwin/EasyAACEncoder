@@ -24,12 +24,14 @@ using namespace std;
 int TestG711ToAAC_private();
 int TestG711ToAAC_standard();
 int TestG726ToAAC();
+int TestPcmToAAC();
 
 int main(int argc, char** argv)
 {
     //TestG711ToAAC_private();
     //TestG711ToAAC_standard();
-    TestG726ToAAC();
+    //TestG726ToAAC();
+	TestPcmToAAC();
     return 0;
 }
 
@@ -176,3 +178,79 @@ int TestG726ToAAC()
 
     return 0;
 }
+
+int TestPcmToAAC()
+{
+    int active = 0;
+	InitParam initParam;
+	initParam.u32AudioSamplerate=44100;
+	initParam.ucAudioChannel=2;
+	initParam.u32PCMBitSize=16;
+	initParam.ucAudioCodec = Law_PCM16;
+	//initParam.g726param.ucRateBits=Rate16kBits;
+	//initParam.g726param.ucRateBits=Rate24kBits;
+	//initParam.g726param.ucRateBits=Rate32kBits;	
+	//initParam.g726param.ucRateBits=Rate40kBits;	
+
+    active = Easy_AACEncoder_activate(EASYAACENCODER_KEY);
+    if(active != EASY_ACTIVATE_SUCCESS)
+    {
+        printf("%s:[%d] Easy_AACEncoder_activate failed! ret=%d\n",__FUNCTION__,__LINE__,active);
+        return -1;
+    }
+
+	EasyAACEncoder_Handle handle = Easy_AACEncoder_Init(initParam);
+	//char* infilename = "encode_out_16.g726"; 
+	//char* outAacname = "encode_out_16.aac";
+	//char* infilename = "encode_out_24.g726"; 
+	//char* outAacname = "encode_out_24.aac";
+	//char* infilename = "encode_out_32.g726"; 
+	//char* outAacname = "encode_out_32.aac";
+	char* infilename = "playback.pcm"; 
+	char* outAacname = "playback.aac";
+
+	FILE* fpIn = fopen(infilename, "rb");
+	if(NULL == fpIn)
+	{
+		printf("%s:[%d] open %s file failed\n",__FUNCTION__,__LINE__,infilename);
+		return -1;
+	}
+
+	FILE* fpOut = fopen(outAacname, "wb");
+	if(NULL == fpOut)
+	{
+		printf("%s:[%d] open %s file failed\n",__FUNCTION__,__LINE__,outAacname);
+		return -1;
+	}
+
+	int gBytesRead = 0;
+	int bPcmBufferSize = 44100 * 2 * 16 / 8 / 25;
+	int bAACBufferSize = 4*bPcmBufferSize;//提供足够大的缓冲区
+	unsigned char *pbPcmBuffer = (unsigned char *)malloc(bPcmBufferSize *sizeof(unsigned char));
+	unsigned char *pbAACBuffer = (unsigned char*)malloc(bAACBufferSize * sizeof(unsigned char));  
+	unsigned int out_len = 0;
+	unsigned long long ts = os_get_reltime();
+
+	while((gBytesRead = fread(pbPcmBuffer, 1, bPcmBufferSize, fpIn)) >0)
+	{    
+		if((Easy_AACEncoder_Encode(handle, pbPcmBuffer, gBytesRead, pbAACBuffer, &out_len)) > 0)
+		{
+			fwrite(pbAACBuffer, 1, out_len, fpOut);
+			printf("%s:[%d] pbAACBuffer(%d) len=%d \n",__FUNCTION__,__LINE__,bAACBufferSize,out_len);
+		}
+		//while (os_get_reltime() < ts + 1000000/25) {
+		//	usleep(1000000/25);
+		//}
+		ts += 1000000/25;
+	}
+
+	Easy_AACEncoder_Release(handle);
+
+	free(pbPcmBuffer);
+	free(pbAACBuffer);
+	fclose(fpIn);
+	fclose(fpOut);
+
+	return 0;
+}
+
