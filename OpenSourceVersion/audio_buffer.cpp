@@ -39,7 +39,7 @@ int audio_buffer::get_data(unsigned char* dest, int how_you_want)
 	else
 	{
 		memcpy(dest, data_, how_you_want);
-		memcpy(data_, data_ + how_you_want, len_ - how_you_want);
+		memmove(data_, data_ + how_you_want, len_ - how_you_want);
 		len_ -= how_you_want;
 		return how_you_want;
 	}   
