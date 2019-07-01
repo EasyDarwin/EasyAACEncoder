@@ -48,8 +48,6 @@ EasyAACEncoder目前支持的音视频格式：
 
 WEB：[www.EasyDarwin.org](http://www.easydarwin.org)
 
-Author：Leo，Kim，Wellsen，Joe
-
-Copyright &copy; EasyDarwin.org 2012-2018
+Copyright &copy; EasyDarwin.org 2012-2019
 
 ![EasyDarwin](http://www.easydarwin.org/skin/easydarwin/images/wx_qrcode.jpg)
